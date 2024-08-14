@@ -88,6 +88,7 @@
       </div>
     </section>
   </div>
+
   <section class="shop_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
@@ -97,7 +98,7 @@
       </div>
       <div></div>
       <div class="row">
-        <div class="col-2">
+        <div class="col-sm-4">
           <div class="col" class="filter-header">
             <h6>Filters</h6>
           </div>
@@ -110,8 +111,12 @@
             <button type="button" id= "filterBtn" class="btn btn-primary">See results</button>
           </div>
         </div>
-			<div class="col-2" id="productList" >
+          <div class="col-8">
+			<div class="row">
+            <div id="productList" class="grid-container">
+            </div>
 			</div>
+          </div>
       </div>
     </div>
   </section>
@@ -153,32 +158,23 @@
         function displayProducts(productsToDisplay) {
             const productList = $('#productList');
             productList.empty();
-            productList.empty();
+			const productCard = ``;
             productsToDisplay.forEach(product => {
-                const productCard = `
-                          <img src="${product.image}" class="card-img-top" alt="${product.title}">
-                          <div class="card-body">
-                            <h5 class="card-title">${product.title}</h5>
-                            <h5 class="card-title">$${product.price.toFixed(2)}</h5>
-                          </div>
-                `;
-                productList.append(productCard);
-            });
-			// createGrid(numberOfRows, numberOfColumns, productList);
+				const productCard = `
+					<div class="col-3">
+						<div class="box">
+							<img src="${product.image}" class="card-img-top" alt="${product.title}">
+							<div class="card-body">
+								<span class="card-title">${product.title}</span>
+								<span class="card-title">$${product.price.toFixed(2)}</span>
+							</div>
+						</div>
+					</div>
+				`;
+				//productList.insertAdjacentHTML('beforeend', productCard);
+				productList.append(productCard);
+			});
         }
-		
-		function createGrid(rows, columns, gridContainer) {
-			//const gridContainer = document.getElementById('grid');
-			gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
-			gridContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-
-			for (let i = 0; i < rows * columns; i++) {
-				const gridItem = document.createElement('div');
-				gridItem.classList.add('grid-item');
-				gridItem.textContent = `Item ${i + 1}`;
-				gridContainer.appendChild(gridItem);
-			}
-		}
         // Apply filters to the products
         function applyFilters() {
             const category = $('#category').val();
